@@ -90,7 +90,7 @@ export default async function MembersPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" name="password" type="password" required placeholder="Password123!" />
+                <Input id="password" name="password" type="password" required placeholder="Min. 8 characters" />
               </div>
             </div>
 

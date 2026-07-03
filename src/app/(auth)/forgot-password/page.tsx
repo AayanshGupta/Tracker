@@ -4,7 +4,9 @@ import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-const adminEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "aayansh.gupta@asbl.in";
+// Support email must be set via NEXT_PUBLIC_SUPPORT_EMAIL environment variable
+const adminEmail = process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "";
+
 
 export default function ForgotPasswordPage() {
   return (
@@ -15,11 +17,17 @@ export default function ForgotPasswordPage() {
         </div>
         <h1 className="text-2xl font-bold tracking-normal">Password Reset</h1>
         <p className="mt-3 text-sm text-muted-foreground">Password reset requests go to the admin account.</p>
-        <Button asChild className="mt-6 w-full">
-          <Link href={`mailto:${adminEmail}?subject=Database Tracker Password Reset`}>
-            Contact admin
-          </Link>
-        </Button>
+        {adminEmail ? (
+          <Button asChild className="mt-6 w-full">
+            <Link href={`mailto:${adminEmail}?subject=Task Tracker Password Reset`}>
+              Contact admin
+            </Link>
+          </Button>
+        ) : (
+          <p className="mt-6 text-sm text-muted-foreground">
+            Please contact your system administrator directly.
+          </p>
+        )}
         <Button asChild variant="ghost" className="mt-2 w-full">
           <Link href="/login">Back to login</Link>
         </Button>

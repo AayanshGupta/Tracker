@@ -1,8 +1,124 @@
+# =============================================================================
+# Task Tracker — .gitignore
+# =============================================================================
+
+# ── Environment & Secrets ──────────────────────────────────────────────────
+# NEVER commit any .env file with real values
 .env
-.env*.local
-.next
-node_modules
-coverage
-dist
+.env.*
+!.env.example
+!.env.production.example
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# ── Next.js ────────────────────────────────────────────────────────────────
+.next/
+out/
+next-env.d.ts
+
+# ── Build Outputs ──────────────────────────────────────────────────────────
+dist/
+build/
+.output/
+
+# ── Node.js ────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+
+# ── TypeScript ─────────────────────────────────────────────────────────────
 *.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ── Prisma ─────────────────────────────────────────────────────────────────
+# Local SQLite dev database
 prisma/dev.db
+prisma/dev.db-journal
+# Prisma query engine binaries (platform-specific, generated on install)
+*.so.node
+libquery_engine-*
+query-engine-*
+prisma/engines/
+
+# ── Coverage & Testing ─────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+jest-results/
+playwright-report/
+test-results/
+
+# ── Logs ───────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ── OS Files ───────────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# Linux
+*~
+
+# ── IDE & Editor Files ─────────────────────────────────────────────────────
+# VS Code (keep shared settings, ignore local/personal)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+# JetBrains (WebStorm, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+# Vim / Neovim
+*.swp
+*.swo
+*~
+.netrwhist
+Session.vim
+# Emacs
+*~
+\#*\#
+.#*
+
+# ── Vercel / Deployment ────────────────────────────────────────────────────
+.vercel/
+.netlify/
+.railway/
+
+# ── Misc ───────────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.eslintcache
+.stylelintcache

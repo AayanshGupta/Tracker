@@ -14,8 +14,12 @@ const credentialsSchema = z.object({
 
 export const authConfig = {
   adapter: PrismaAdapter(prisma),
+  // Required for deployments behind proxies/load balancers (Vercel, Railway, etc.)
+  trustHost: true,
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    // Sessions expire after 8 hours — appropriate for an internal business tool
+    maxAge: 8 * 60 * 60,
   },
   pages: {
     signIn: "/login"
