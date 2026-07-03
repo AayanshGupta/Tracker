@@ -1,0 +1,276 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  LEAD
+  ANALYST
+  REQUESTER
+  VIEWER
+}
+
+enum Permission {
+  REQUEST_CREATE
+  REQUEST_ASSIGN
+  REQUEST_APPROVE
+  REQUEST_EDIT_ALL
+  WORKLOAD_VIEW
+  CALENDAR_MANAGE
+  AUDIT_VIEW
+  USER_MANAGE
+}
+
+enum RequestStatus {
+  DRAFT
+  SUBMITTED
+  TRIAGED
+  IN_PROGRESS
+  BLOCKED
+  IN_REVIEW
+  COMPLETED
+  CANCELLED
+  UPDATE_NEEDED
+  ON_HOLD
+  DELAYED
+}
+
+enum RequestPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ReportType {
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  AD_HOC
+  CAMPAIGN
+  EXECUTIVE
+}
+
+enum AssignmentStatus {
+  PLANNED
+  ACTIVE
+  PAUSED
+  DONE
+}
+
+enum CalendarEventType {
+  DEADLINE
+  REVIEW
+  OUT_OF_OFFICE
+  CAPACITY_HOLD
+  LAUNCH
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users    User[]
+  requests WorkRequest[]
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(REQUESTER)
+  title         String?
+  active        Boolean   @default(true)
+  teamId        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  team            Team?                @relation(fields: [teamId], references: [id])
+  permissions     UserPermission[]
+  requestedWork   WorkRequest[]        @relation("requestedBy")
+  ownedWork       WorkRequest[]        @relation("ownedBy")
+  assignments     Assignment[]
+  capacityEntries CapacityEntry[]
+  calendarEvents  CalendarEvent[]
+  auditLogs       AuditLog[]
+}
+
+model UserPermission {
+  id         String     @id @default(cuid())
+  userId     String
+  permission Permission
+  grantedBy  String?
+  grantedAt  DateTime   @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, permission])
+}
+
+model WorkRequest {
+  id             String          @id @default(cuid())
+  reference      String          @unique
+  title          String
+  description    String          @db.Text
+  outputType     String          @map("businessUnit")
+  reportType     ReportType
+  priority       RequestPriority @default(MEDIUM)
+  status         RequestStatus   @default(SUBMITTED)
+  requestedById  String
+  ownerId        String?
+  teamId         String?
+  dueDate        DateTime
+  completedAt    DateTime?
+  estimatedHours Decimal         @default(1) @db.Decimal(6, 2)
+  tags           String[]        @default([])
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  requestedBy User        @relation("requestedBy", fields: [requestedById], references: [id])
+  owner       User?       @relation("ownedBy", fields: [ownerId], references: [id])
+  team        Team?       @relation(fields: [teamId], references: [id])
+  assignments Assignment[]
+  reports     ReportDeliverable[]
+  events      CalendarEvent[]
+  auditLogs   AuditLog[]
+
+  @@index([status, dueDate])
+  @@index([priority, dueDate])
+  @@index([requestedById])
+}
+
+model Assignment {
+  id          String           @id @default(cuid())
+  requestId   String
+  assigneeId  String
+  status      AssignmentStatus @default(PLANNED)
+  roleNote    String?
+  allocatedHours Decimal       @db.Decimal(6, 2)
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  request  WorkRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  assignee User        @relation(fields: [assigneeId], references: [id])
+
+  @@index([assigneeId, startDate, endDate])
+  @@index([requestId])
+}
+
+model ReportDeliverable {
+  id            String    @id @default(cuid())
+  requestId     String
+  name          String
+  version       Int       @default(1)
+  storageUrl    String?
+  submittedAt   DateTime?
+  approvedAt    DateTime?
+  approvalNotes String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  request WorkRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+}
+
+model CapacityEntry {
+  id             String   @id @default(cuid())
+  userId         String
+  weekStart      DateTime
+  availableHours Decimal  @db.Decimal(6, 2)
+  reservedHours  Decimal  @db.Decimal(6, 2)
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, weekStart])
+}
+
+model CalendarEvent {
+  id          String            @id @default(cuid())
+  title       String
+  type        CalendarEventType
+  startsAt    DateTime
+  endsAt      DateTime
+  userId      String?
+  requestId   String?
+  description String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user    User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  request WorkRequest? @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@index([startsAt, endsAt])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorId     String?
+  requestId   String?
+  action      String
+  entityType  String
+  entityId    String
+  before      Json?
+  after       Json?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  actor   User?        @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  request WorkRequest? @relation(fields: [requestId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}

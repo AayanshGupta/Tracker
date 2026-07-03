@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workload Planning - OptimaCore</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#d9d9e5",
+                      "on-tertiary-fixed": "#360f00",
+                      "surface-container-low": "#f3f3fe",
+                      "background": "#faf8ff",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#5c647a",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "surface-container-highest": "#e1e2ed",
+                      "tertiary": "#943700",
+                      "tertiary-fixed": "#ffdbcd",
+                      "secondary-container": "#dae2fd",
+                      "input": "hsl(214, 32%, 91%)",
+                      "surface-bright": "#faf8ff",
+                      "primary-container": "#2563eb",
+                      "on-surface": "#191b23",
+                      "tertiary-container": "#bc4800",
+                      "ring": "hsl(217, 91%, 60%)",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#eeefff",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-background": "#191b23",
+                      "surface-container-high": "#e7e7f3",
+                      "primary-fixed": "#dbe1ff",
+                      "inverse-surface": "#2e3039",
+                      "on-primary-fixed": "#00174b",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "on-error": "#ffffff",
+                      "surface-container": "#ededf9",
+                      "on-tertiary-fixed-variant": "#7d2d00",
+                      "muted": "hsl(210, 11%, 71%)",
+                      "inverse-primary": "#b4c5ff",
+                      "secondary": "#565e74",
+                      "destructive": "hsl(0, 84%, 60%)",
+                      "success": "#10B981",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "primary": "#004ac6",
+                      "secondary-fixed": "#dae2fd",
+                      "on-error-container": "#93000a",
+                      "surface-variant": "#e1e2ed",
+                      "on-tertiary-container": "#ffede6",
+                      "surface-tint": "#0053db",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "inverse-on-surface": "#f0f0fb",
+                      "surface": "#faf8ff",
+                      "error": "#ba1a1a",
+                      "outline": "#737686",
+                      "outline-variant": "#c3c6d7",
+                      "border": "hsl(214, 31%, 89%)",
+                      "warning": "#F59E0B",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-surface-variant": "#434655"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "stack-sm": "0.5rem",
+                      "container-max": "1280px",
+                      "margin-mobile": "1rem",
+                      "stack-md": "1rem",
+                      "stack-lg": "2rem"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-xl": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "30px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .shadow-soft {
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden sticky top-0 z-40 flex justify-between items-center w-full px-gutter h-16 bg-surface dark:bg-inverse-surface border-b border-border dark:border-outline-variant transition-colors duration-200">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="database" data-weight="fill">database</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">OptimaCore</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate system administrator in a brightly lit modern office setting, wearing smart casual attire. The lighting is soft and even, typical of a high-end corporate photoshoot. The background is a slightly blurred office environment with glass partitions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrmwZhJSLaDAoseOW1alouTwkK04cQRlkmZsxNtxA_b1zBJY7DPAszHMh3HUdQNs3Xr78-yLxzAxJKxVIo_fwNvoRg5X536-w6sKKXoxbe3Ka9atua-AK406cnCZCIkJQqwRbIYawAY3r8NVIl3T1aVe2XG_wDnRf5QIdMTR0sxsP8sufWond-Fp4VGbtckR5QPnHXlIuncuiSHuVTH8uoHT0UfkIwHGSwY-2j6gqIcG84uHXnkvOtcKsKk8Mv9FkvebV0Hc9j01dk"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden lg:flex flex-col h-screen p-4 space-y-stack-md bg-surface-container-low dark:bg-inverse-surface border-r border-border dark:border-outline-variant w-[280px] shrink-0 sticky top-0">
+<!-- Brand / Header -->
+<div class="mb-6 px-4">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined font-bold" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Report Tracker</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Capacity Planning</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary hover:bg-surface-tint font-body-md text-body-md py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors duration-200 shadow-soft">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                New Request
+            </button>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/20 hover:rounded-lg transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="move_to_inbox">move_to_inbox</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-primary-fixed rounded-lg transition-all duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="assessment" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span class="font-label-md text-label-md font-bold">Workload</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/20 hover:rounded-lg transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/20 hover:rounded-lg transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="history">history</span>
+<span class="font-label-md text-label-md">Audit</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant/20 hover:rounded-lg transition-all duration-150 active:scale-95 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- User Profile Area -->
+<div class="mt-auto pt-4 border-t border-border flex items-center gap-3 px-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-border shrink-0">
+<img alt="System Administrator" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate system administrator in a brightly lit modern office setting, wearing smart casual attire. The lighting is soft and even, typical of a high-end corporate photoshoot. The background is a slightly blurred office environment with glass partitions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAZRcGAnhTYspbNVBXSPqbpNFUkDZdDcuWLolcFDKbdBIMQHMtlbS7V5NNgr9Dcb6mSpZCmJhWP2Ts3Cz8CpgGiBpS5COSFqAe8ryl_eRapbaeaAjv6cXfmtTUwiaQ6TbW7mJKwdIYNMMsnCG95SWmhftUnB-BnkDXRpenCKuHDyAm0YckpjOSQAC7zD5jbvDYoEjk9B5uj4fqigsLOjFA_sEBg7BoHqJyDtxwX25jtv2QxeKW9pHDzWtGHHPsXvj90ZLwVR9f6_OD"/>
+</div>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md font-bold text-on-surface truncate">Admin User</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">System Administrator</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto w-full">
+<!-- Desktop Header Area (for content) -->
+<header class="hidden md:flex items-center justify-between px-8 py-6 sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-transparent transition-all duration-200" id="main-header">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Workload Planning</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage resource allocation and track team capacity.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-lowest border border-border rounded-lg text-body-md font-body-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent w-64 shadow-soft" placeholder="Search resources..." type="text"/>
+</div>
+<!-- Notifications Desktop -->
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full border border-surface-container-lowest"></span>
+</button>
+</div>
+</header>
+<div class="p-4 md:p-8 space-y-stack-lg max-w-container-max mx-auto w-full border-2 border-on-surface rounded-none bg-white relative">
+<!-- Filters Toolbar -->
+<section class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-4 border border-border border-2 border-on-surface rounded-none">
+<div class="flex flex-wrap items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Filters:</span>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-border rounded-md pl-3 pr-8 py-1.5 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer">
+<option>All Teams</option>
+<option>Data Engineering (CRA)</option>
+<option>Finance Ops (FIN)</option>
+<option>Insights (INS)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-[18px]" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-border rounded-md pl-3 pr-8 py-1.5 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer">
+<option>October 2023</option>
+<option>November 2023</option>
+<option>December 2023</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-muted text-[18px]" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high rounded-lg p-1">
+<button class="px-3 py-1.5 bg-surface-container-lowest shadow-sm rounded-md font-label-md text-label-md text-on-surface transition-all">List View</button>
+<button class="px-3 py-1.5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md rounded-md transition-all">Timeline</button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Utilization Overview (Spans 12 cols on mobile, 8 on desktop) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-border overflow-hidden flex flex-col border-2 border-on-surface rounded-none">
+<div class="p-6 border-b border-border flex justify-between items-center bg-surface-bright">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Team Utilization Overview</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Overall capacity vs allocation across active teams.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex h-3 w-3 rounded-full bg-primary relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+</span>
+<span class="font-label-md text-label-md text-primary font-bold">82% Aggregate</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-center bg-background relative min-h-[300px]">
+<!-- Decorative Shader Background for the chart area -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+</div>
+<!-- Simulated Chart Content -->
+<div class="relative z-10 w-full">
+<div class="flex justify-between items-end h-48 px-4">
+<!-- Bar 1 -->
+<div class="flex flex-col items-center gap-2 w-1/6">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all duration-500 h-[65%] group-hover:bg-surface-tint"></div>
+<!-- Tooltip -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-on-primary text-label-sm font-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-soft whitespace-nowrap">65% Allocated</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">W1</span>
+</div>
+<!-- Bar 2 -->
+<div class="flex flex-col items-center gap-2 w-1/6">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all duration-500 h-[80%] group-hover:bg-surface-tint"></div>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-on-primary text-label-sm font-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-soft whitespace-nowrap">80% Allocated</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">W2</span>
+</div>
+<!-- Bar 3 -->
+<div class="flex flex-col items-center gap-2 w-1/6">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-destructive rounded-t-sm transition-all duration-500 h-[105%] group-hover:opacity-90"></div>
+<!-- Alert Indicator -->
+<span class="absolute -top-3 -right-2 material-symbols-outlined text-destructive text-[16px] bg-surface-container-lowest rounded-full" data-icon="warning">warning</span>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-on-primary text-label-sm font-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-soft whitespace-nowrap">105% (Over)</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold text-destructive">W3</span>
+</div>
+<!-- Bar 4 -->
+<div class="flex flex-col items-center gap-2 w-1/6">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-sm transition-all duration-500 h-[90%] group-hover:bg-surface-tint"></div>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-on-primary text-label-sm font-label-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow-soft whitespace-nowrap">90% Allocated</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">W4</span>
+</div>
+</div>
+<!-- Threshold Line -->
+<div class="absolute top-10 left-0 w-full border-t border-dashed border-destructive/50 flex items-center">
+<span class="bg-surface-container-lowest text-destructive font-label-sm text-label-sm px-1 ml-2 -mt-3 shadow-sm rounded">100% Cap</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Capacity Alerts Widget (Spans 12 cols on mobile, 4 on desktop) -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-border flex flex-col overflow-hidden border-2 border-on-surface rounded-none">
+<div class="p-5 border-b border-border bg-error-container/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="error">error</span>
+<h3 class="font-headline-md text-headline-md-mobile lg:text-headline-md text-on-surface">Capacity Alerts</h3>
+</div>
+</div>
+<div class="p-5 flex-1 bg-surface-bright space-y-3">
+<div class="p-3 border border-error-container bg-surface-container-lowest rounded-lg flex items-start gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center shrink-0 mt-0.5">
+<span class="font-label-sm text-label-sm font-bold">AK</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">A. Khan <span class="text-error ml-1 font-normal">(110%)</span></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">Over-allocated due to REQ-2026-003 slipping into W3.</p>
+<button class="mt-2 text-primary font-label-sm text-label-sm hover:underline">Reassign Tasks</button>
+</div>
+</div>
+<div class="p-3 border border-warning/30 bg-surface-container-lowest rounded-lg flex items-start gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-full bg-warning/20 text-warning flex items-center justify-center shrink-0 mt-0.5">
+<span class="font-label-sm text-label-sm font-bold text-warning">SJ</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">S. Jenkins <span class="text-warning ml-1 font-normal">(95%)</span></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">Approaching limit. Monitor incoming ad-hoc requests.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Resource Grid Header -->
+<div class="col-span-12 mt-4 flex items-center justify-between border-b border-border pb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Resource Allocation</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">Showing 3 Members</span>
+</div>
+<!-- Resource Cards -->
+<!-- Card 1: J. Doe (Available) -->
+<article class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest border border-border hover:border-outline-variant transition-colors duration-200 overflow-hidden flex flex-col group border-2 border-on-surface rounded-none">
+<div class="p-5 border-b border-border bg-surface-bright flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-border shrink-0">
+<img alt="J. Doe Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female data engineer with short dark hair in a well-lit modern corporate environment. She is smiling subtly. The background features subtle hints of high-tech office equipment. Soft, natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEr_CV97C8WVejyWgojBds8FzKHWB-jJbfJnUyDuenmm4HI3jt7xnqlYxSAn48UjBFUNsu2wc4M1RYPjyILwZYAKT0G-H7OFakrDECEDKrVhi-EvEzBi_HHGhGVGtwnyQ4ixLoQob5oWlbbGDH7T2ygwXYdhWd69cfLCAwlesVNlJ8W5zJRJf5tf-pjhBZas0MSk-FUWwMTXjN8FQFm8h_9JSbyrGj1XfKgUZDSt7Jh8h8ninQz_LWkDRWlsn93YvOQTF9X6wwsT8I"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Jane Doe</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Data Engineer</p>
+<div class="mt-1 inline-flex items-center gap-1 bg-success/10 text-success px-2 py-0.5 rounded font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+                                    Available (60%)
+                                </div>
+</div>
+</div>
+<button class="text-muted hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="p-5 flex-1 bg-background flex flex-col gap-4">
+<!-- Progress Bar -->
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1.5">
+<span class="text-on-surface-variant">Monthly Allocation</span>
+<span class="font-bold text-on-surface">60%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-success h-2 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<!-- Active Assignments -->
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Active Assignments (2)</p>
+<ul class="space-y-2">
+<li class="bg-surface-container-lowest border border-border rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-primary block mb-0.5">REQ-2026-002</span>
+<span class="text-on-surface line-clamp-1">Migration Script Updates</span>
+</li>
+<li class="bg-surface-container-lowest border border-border rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-primary block mb-0.5">REQ-2026-005</span>
+<span class="text-on-surface line-clamp-1">Data Quality Audit - Q3</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="p-3 border-t border-border bg-surface-container-low flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-primary font-label-sm text-label-sm font-medium hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="assignment_add">assignment_add</span> Assign Task
+                        </button>
+</div>
+</article>
+<!-- Card 2: A. Smith (At Capacity) -->
+<article class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest border border-border hover:border-outline-variant transition-colors duration-200 overflow-hidden flex flex-col group border-2 border-on-surface rounded-none">
+<div class="p-5 border-b border-border bg-surface-bright flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-border shrink-0">
+<img alt="A. Smith Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a male database administrator wearing glasses in a clean, brightly lit corporate office. He has a neutral, focused expression. The office background is mostly white and light gray, typical of modern tech companies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMJA379c0N2WQL2C9aoxsqLvcQE8IApnCSwif1Y_eVba2xfcF2sHwGZjzNValnK6aFy5q9nv9N4p4aq3hkN78ZbuHtRO4oWMBJ_6Y_gnyJmstRGbpR7EHB3vkhHeubWCJPqYXl1HnUMZPCEpuNKPeTAYN6XyEyYEP37LQguL7ZTXCiXxEtoWl0SpcGfFoiC-HDX_L_RG9b-rqtGEdtk5HcsklnAGi5Z4xUm_EBJJLPJb_qqZVXg_USc4cIsLCIWpUFiasiKeEX5wqr"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Alex Smith</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sr. DBA</p>
+<div class="mt-1 inline-flex items-center gap-1 bg-warning/10 text-warning px-2 py-0.5 rounded font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-warning"></span>
+                                    At Capacity (95%)
+                                </div>
+</div>
+</div>
+<button class="text-muted hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="p-5 flex-1 bg-background flex flex-col gap-4">
+<!-- Progress Bar -->
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1.5">
+<span class="text-on-surface-variant">Monthly Allocation</span>
+<span class="font-bold text-on-surface">95%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-warning h-2 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<!-- Active Assignments -->
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Active Assignments (1)</p>
+<ul class="space-y-2">
+<li class="bg-surface-container-lowest border border-border rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-primary block mb-0.5">REQ-2026-001</span>
+<span class="text-on-surface line-clamp-1">Q3 Financial Data Pipeline Setup</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="p-3 border-t border-border bg-surface-container-low flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-muted cursor-not-allowed font-label-sm text-label-sm font-medium flex items-center gap-1" disabled="">
+<span class="material-symbols-outlined text-[16px]" data-icon="block">block</span> Assign Task (Locked)
+                        </button>
+</div>
+</article>
+<!-- Card 3: M. Khan (Over-Allocated) -->
+<article class="col-span-12 md:col-span-6 lg:col-span-4 bg-error-container/5 border border-error-container hover:border-error transition-colors duration-200 overflow-hidden flex flex-col group relative">
+<!-- Warning Banner -->
+<div class="absolute top-0 right-0 w-16 h-16 overflow-hidden z-10">
+<div class="absolute top-0 right-0 w-24 h-6 bg-error text-on-error transform rotate-45 translate-x-7 translate-y-2 text-center font-label-sm text-[10px] uppercase font-bold tracking-wider leading-6 shadow-sm">
+                            OVER
+                        </div>
+</div>
+<div class="p-5 border-b border-border bg-surface-bright flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-full bg-error-container text-error flex items-center justify-center font-headline-md font-bold shrink-0 border border-error/20">
+                                MK
+                            </div>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Maya Khan</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Systems Analyst</p>
+<div class="mt-1 inline-flex items-center gap-1 bg-error/10 text-error px-2 py-0.5 rounded font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                                    Over-Allocated (110%)
+                                </div>
+</div>
+</div>
+<button class="text-muted hover:text-on-surface transition-colors relative z-20">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="p-5 flex-1 bg-background flex flex-col gap-4">
+<!-- Progress Bar -->
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1.5">
+<span class="text-error font-medium">Monthly Allocation</span>
+<span class="font-bold text-error">110%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-visible relative">
+<div class="bg-primary h-2 rounded-l-full" style="width: 90%"></div>
+<div class="absolute top-0 right-0 bg-error h-2 rounded-r-full" style="width: 10%"></div>
+<!-- Overage Indicator -->
+<div class="absolute top-0 right-[-5%] bg-error h-2 w-full rounded-full opacity-50" style="width: 15%"></div>
+</div>
+</div>
+<!-- Active Assignments -->
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Active Assignments (3)</p>
+<ul class="space-y-2">
+<li class="bg-surface-container-lowest border border-border rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-primary block mb-0.5">REQ-2026-003</span>
+<span class="text-on-surface line-clamp-1">Infrastructure Provisioning</span>
+</li>
+<li class="bg-surface-container-lowest border border-border rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-primary block mb-0.5">REQ-2026-004</span>
+<span class="text-on-surface line-clamp-1">Security Audit Remediation</span>
+</li>
+<li class="bg-error-container/20 border border-error-container rounded p-2 text-body-sm font-body-sm">
+<span class="font-label-sm text-label-sm font-bold text-error block mb-0.5">REQ-2026-008 (Urgent)</span>
+<span class="text-on-surface line-clamp-1">Hotfix Deployments</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="p-3 border-t border-error-container bg-error-container/10 flex justify-center">
+<button class="text-error font-label-sm text-label-sm font-bold hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync_alt">sync_alt</span> Rebalance Workload
+                        </button>
+</div>
+</article>
+</div>
+<div class="absolute bottom-0 left-0 w-full flex justify-around items-end h-12 pointer-events-none overflow-hidden translate-y-1/2"><div class="w-24 h-12 bg-primary rounded-t-full opacity-90"></div><div class="w-24 h-12 bg-primary-container rounded-t-full opacity-90"></div><div class="w-24 h-12 bg-primary rounded-t-full opacity-90"></div><div class="w-24 h-12 bg-primary-container rounded-t-full opacity-90"></div></div><div class="absolute top-0 right-0 h-full flex flex-col justify-around items-start w-12 pointer-events-none overflow-hidden translate-x-1/2"><div class="w-12 h-24 bg-primary-container rounded-l-full opacity-90"></div><div class="w-12 h-24 bg-primary rounded-l-full opacity-90"></div><div class="w-12 h-24 bg-primary-container rounded-l-full opacity-90"></div><div class="w-12 h-24 bg-primary rounded-l-full opacity-90"></div><div class="w-12 h-24 bg-primary-container rounded-l-full opacity-90"></div></div></div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface dark:bg-inverse-surface border-t border-border dark:border-outline-variant z-40 flex justify-around items-center h-[64px] pb-safe shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="move_to_inbox">move_to_inbox</span>
+<span class="font-label-sm text-[10px] font-medium">Requests</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary font-bold" href="#">
+<div class="bg-secondary-container px-4 py-1 rounded-full mb-1">
+<span class="material-symbols-outlined" data-icon="assessment" style="font-variation-settings: 'FILL' 1;">assessment</span>
+</div>
+<span class="font-label-sm text-[10px] font-medium">Workload</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-[10px] font-medium">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-label-sm text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+<!-- Contextual FAB (Mobile Only - Replaces sidebar 'New Request') -->
+<button class="md:hidden fixed bottom-[88px] right-4 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center hover:bg-surface-tint active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<script>
+        // Simple script to add shadow to header on scroll for depth
+        const mainContent = document.querySelector('main');
+        const header = document.getElementById('main-header');
+        
+        mainContent.addEventListener('scroll', () => {
+            if (mainContent.scrollTop > 10) {
+                header.classList.add('shadow-soft', 'border-border');
+                header.classList.remove('border-transparent');
+            } else {
+                header.classList.remove('shadow-soft', 'border-border');
+                header.classList.add('border-transparent');
+            }
+        });
+    </script>
+</body></html>
