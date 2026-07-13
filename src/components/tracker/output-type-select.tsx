@@ -10,6 +10,8 @@ const PRESET_OUTPUT_TYPES = [
   "Report",
   "Data Extraction",
   "Posthog",
+  "Creative Briefs",
+  "Ad Copies",
   "Others",
 ];
 
@@ -19,7 +21,7 @@ export function OutputTypeSelect() {
   return (
     <div className="space-y-2">
       <Label htmlFor="outputType" className="font-medium">
-        Type of Output <span className="text-destructive">*</span>
+        Task / Output Type <span className="text-destructive">*</span>
       </Label>
       <select
         id="outputType"

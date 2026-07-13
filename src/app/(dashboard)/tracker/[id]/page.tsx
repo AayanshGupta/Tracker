@@ -76,7 +76,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
           </CardContent>
         </Card>
         <Card>
-          <CardHeader><CardTitle>Output</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Task / Output</CardTitle></CardHeader>
           <CardContent className="space-y-2 text-sm">
             <p>{request.outputType}</p>
             <p className="text-muted-foreground">{titleCase(request.priority)} priority</p>

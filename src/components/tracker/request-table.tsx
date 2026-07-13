@@ -46,7 +46,7 @@ export function RequestTable({
         <table className="w-full min-w-[860px] text-left text-sm">
           <thead className="border-b bg-muted/30">
             <tr>
-              {["Request", "Output / Priority", "Assignee", "Due", "Status", ""].map((h) => (
+              {["Request", "Task / Priority", "Assignee", "Due", "Status", ""].map((h) => (
                 <th
                   key={h}
                   className="px-5 py-3 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground"

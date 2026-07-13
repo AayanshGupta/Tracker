@@ -28,7 +28,7 @@ export default async function NewRequestPage() {
           New Request
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Capture the output, deadline, and delivery context.
+          Capture the task type, deadline, and delivery context.
         </p>
       </div>
 
@@ -50,7 +50,7 @@ export default async function NewRequestPage() {
                 id="title"
                 name="title"
                 required
-                placeholder="e.g. Weekly campaign pacing report"
+                placeholder="e.g. Weekly campaign pacing report, Summer ad copy"
                 className="h-11"
               />
             </div>

@@ -15,8 +15,6 @@ import {
   ShieldCheck,
   UserCog,
 } from "lucide-react";
-
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +59,7 @@ export function AppShellClient({ children, user, canManageUsers, initials, signO
             </div>
             <div>
               <p className="font-display text-base font-bold tracking-tight text-foreground">
-                Database Tracker
+                Task Tracker
               </p>
               <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
                 Performance Team
@@ -102,9 +100,9 @@ export function AppShellClient({ children, user, canManageUsers, initials, signO
 
             <details className="group relative">
               <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl border border-border bg-card px-2 py-1.5 shadow-sm transition-shadow hover:shadow-md">
-                <Avatar className="h-7 w-7">
-                  <AvatarFallback className="text-[10px]">{initials}</AvatarFallback>
-                </Avatar>
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-semibold text-muted-foreground">
+                  {initials}
+                </div>
                 <div className="hidden text-left md:block">
                   <p className="text-xs font-semibold leading-tight">{user.name}</p>
                   <p className="font-mono text-[10px] text-muted-foreground">{user.roleLabel}</p>
@@ -115,9 +113,9 @@ export function AppShellClient({ children, user, canManageUsers, initials, signO
               <div className="absolute right-0 mt-2 w-72 rounded-xl border border-border bg-popover p-2 shadow-soft">
                 {/* User info */}
                 <div className="mb-1 flex items-center gap-3 border-b border-border px-3 py-3">
-                  <Avatar className="h-9 w-9">
-                    <AvatarFallback>{initials}</AvatarFallback>
-                  </Avatar>
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground">
+                    {initials}
+                  </div>
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold">{user.name}</p>
                     <p className="truncate font-mono text-xs text-muted-foreground">{user.email}</p>

@@ -39,7 +39,7 @@ export default async function LoginPage({
               <Database className="h-8 w-8" />
             </div>
             <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
-              Database Tracker
+              Task Tracker
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Sign in to your allocation workspace

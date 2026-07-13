@@ -1,9 +1,7 @@
 import type { Assignment, CapacityEntry, Team, User, WorkRequest } from "@prisma/client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { formatDate, titleCase } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 
@@ -63,9 +61,9 @@ export function WorkloadBoard({ users }: { users: WorkloadUser[] }) {
           <Card key={user.id} className="overflow-hidden">
             <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 pb-4">
               <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="text-sm">{getInitials(user.name)}</AvatarFallback>
-                </Avatar>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground">
+                  {getInitials(user.name)}
+                </div>
                 <div>
                   <CardTitle className="text-sm">{user.name}</CardTitle>
                   <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
@@ -79,7 +77,12 @@ export function WorkloadBoard({ users }: { users: WorkloadUser[] }) {
             </CardHeader>
 
             <CardContent>
-              <Progress value={utilization} className="h-2" />
+              <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted/40">
+                <div
+                  className={cn("h-full w-full flex-1 transition-all duration-500", utilization > 90 ? "bg-rose-500" : utilization > 75 ? "bg-amber-500" : "bg-primary")}
+                  style={{ transform: `translateX(-${100 - utilization}%)` }}
+                />
+              </div>
 
               {/* Stats */}
               <div className="mt-4 grid grid-cols-2 gap-3 rounded-lg bg-muted/30 p-3">
